@@ -16,10 +16,10 @@ $(function (){
   });
   // クリックでDOMの挿入
   $("#q5").on('click', function(){
-    $(this).before("DOMの前");
-    $(this).prepend("DOMの中の前");
-    $(this).append("DOMの中の後");
-    $(this).after("DOMの後");
+    $(this).before("DOMの前")
+    .prepend("DOMの中の前")
+    .append("DOMの中の後")
+    .after("DOMの後")
   });
   // クリックして移動
   $("#q6").on('click', function(){
@@ -40,12 +40,12 @@ $(function (){
   }});
   // クリックで配列のアラート表示
   $("#q9 li").on('click', function(){
-    let a = $(this).index();
+    const a = $(this).index();
     alert(a);
   });
   // Q10をクリックしてQ11を操作
   $("#q10 li").on('click', function(){
-    let a = $(this).index();
+    const a = $(this).index();
     // .eq()：エレメントの集合から指定したポジションのエレメントだけを取り出す。
     $("#q11 li").eq(a).addClass("large-text");
   });
