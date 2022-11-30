@@ -33,24 +33,25 @@ $(function () {
       displayError(err)
     })
   });
+
   // .listsクラスに該当の書籍一覧を表示させる処理
-  function displayResult(r) {
+  function displayResult(row) {
     // .messageクラスを取り除く
     $(".message").remove();
     // r = r[0].itemsがundefined、または配列に中身が入っていなければエラーメッセージを出す。それ以外は個別の処理を指定する。
-    if(r[0].items == undefined || r[0].items.length == 0) {
+    if(row[0].items == undefined || row[0].items.length == 0) {
       // エラーメッセージを定義
       const noResult = `<div class="message">検索結果が見つかりませんでした。<br>別のキーワードで検索して下さい。</div>`;
       // listsクラスの直前に追加する。
       $(".lists").before(noResult)
     } else {
       // resultの中のitems配列の中身を個別に取り出し処理を指定する
-      $.each(r[0].items, function (index) {
+      $.each(row[0].items, function (index) {
         // 配列の中の値をそれぞれ定義
-        let title = r[0].items[index].title;
-        let creator = r[0].items[index]["dc:creator"];
-        let publisher = r[0].items[index]["dc:publisher"];
-        let id = r[0].items[index]["@id"];
+        let title = row[0].items[index].title;
+        let creator = row[0].items[index]["dc:creator"];
+        let publisher = row[0].items[index]["dc:publisher"];
+        let id = row[0].items[index]["@id"];
         // 値がundefinedだった時、それぞれ不明と表示させる
         title == undefined ? title = "タイトル不明" : title;
         creator == undefined ? creator = "作者不明" : creator;
@@ -63,7 +64,7 @@ $(function () {
     }
   }
   // エラーメッセージを表示させる処理
-  function displayError(e) {
+  function displayError(err) {
     // .listsクラスを空にする
     $(".lists").empty();
     // .messageクラスを取り除く
@@ -73,10 +74,10 @@ $(function () {
     const errorText = `<div class="message">検索キーワードが有効ではありません。<br>1文字以上で検索して下さい。</div>`;
     const errorMessage = `<div class="message">予期せぬエラーが起きました。<br>再読み込みを行ってください。</div>`;
     // ステイタスコードが0の時（接続が出来ていない）はerrorConnectを.listsクラスの直前に追加する。
-    if(e.status === 0) {
+    if(err.status === 0) {
       $(".lists").before(errorConnect)
     // ステイタスコードが400の時（クライアント側のエラー）はerrorTextを追加。
-    } else if (e.status === 400) {
+    } else if (err.status === 400) {
       $(".lists").before(errorText)
     // それ以外はerrorMessageを追加する。
     } else {

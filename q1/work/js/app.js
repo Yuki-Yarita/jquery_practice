@@ -40,13 +40,13 @@ $(function (){
   }});
   // クリックで配列のアラート表示
   $("#q9 li").on('click', function(){
-    const a = $(this).index();
-    alert(a);
+    const alert = $(this).index();
+    alert(alert);
   });
   // Q10をクリックしてQ11を操作
   $("#q10 li").on('click', function(){
-    const a = $(this).index();
+    const alert = $(this).index();
     // .eq()：エレメントの集合から指定したポジションのエレメントだけを取り出す。
-    $("#q11 li").eq(a).addClass("large-text");
+    $("#q11 li").eq(alert).addClass("large-text");
   });
   });
